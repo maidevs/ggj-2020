@@ -28,6 +28,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
         [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
         [SerializeField] private float m_CameraRotationSpeed;
+        [SerializeField] private float m_maxVerticalAngle;
+        [SerializeField] private float m_minVerticalAngle;
+
 
         private Camera m_Camera;
         private bool m_Jump;
@@ -99,7 +102,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             GetInput(out speed);
             // always move along the camera forward as it is the direction that it being aimed at
-            Vector3 desiredMove = transform.forward * m_Input.y + transform.right * m_Input.x;
+            Vector3 desiredMove = m_Camera.transform.forward * m_Input.y + m_Camera.transform.right * m_Input.x;
 
             // get a normal for the surface that is being touched to move along it
             RaycastHit hitInfo;
@@ -212,7 +215,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             vertical = Mathf.Abs(vertical) > 0.5f ? vertical : 0f;
             horizontal = Mathf.Abs(horizontal) > 0.5f ? horizontal : 0f;
-            
+
             bool waswalking = m_IsWalking;
 
 #if !MOBILE_INPUT
@@ -249,9 +252,23 @@ namespace UnityStandardAssets.Characters.FirstPerson
             Vector3 rotationDirectionVector = new Vector3(rightStickHorizontal, -rightStickVertical, 0f);
             Vector3 resultantMovementVector = rotationDirectionVector * m_CameraRotationSpeed;
 
-            transform.transform.eulerAngles += resultantMovementVector;
+            m_Camera.transform.localEulerAngles += resultantMovementVector;
+
+            var movedEulerAngles = m_Camera.transform.localEulerAngles;
+
+            m_Camera.transform.localEulerAngles = new Vector3(
+                ClampAngle(movedEulerAngles.x, -70f, 70f),
+                movedEulerAngles.y,
+                movedEulerAngles.z
+                );
         }
 
+        float ClampAngle(float angle, float from, float to)
+        {
+            if (angle < 0f) angle = 360 + angle;
+            if (angle > 180f) return Mathf.Max(angle, 360 + from);
+            return Mathf.Min(angle, to);
+        }
 
         private void OnControllerColliderHit(ControllerColliderHit hit)
         {
