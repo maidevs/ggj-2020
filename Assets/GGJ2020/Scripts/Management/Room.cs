@@ -8,11 +8,15 @@ public class Room : MonoBehaviour
 {
     public IPlayer player;
     public Renderer water;
-    public List<GameObject> holes;
     public Renderer[] walls;
 
 
+    private List<Hole> holes;
     private float waterSpeedMultiplier = 1;
+
+    public void Start() {
+        holes = new List<Hole>();
+    }
 
     public void SetReady() {
         //reset player position
@@ -76,16 +80,17 @@ public class Room : MonoBehaviour
             hole.transform.position = randomPosition;
             hole.transform.rotation = Quaternion.Inverse(wall.transform.rotation);
 
-            holes.Add(hole.gameObject);
+            holes.Add(hole);
         } while(!foundPlace && tries < 10);
 
     }
 
     public int GetHoleNumber() {
-        if(holes == null)
-            holes = new List<GameObject>();
-
         return holes.Count;
+    }
+
+    public void WarnDeadHole(Hole hole) {
+        holes.RemoveAll(a => a == hole);
     }
 
     public static GameController GameController { get { return GameController.Instance; } }

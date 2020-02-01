@@ -15,6 +15,7 @@ public class GameController : Singleton<GameController>
     [Header("Player Settings")]
     [SerializeField]
     private IPlayer PlayerPrefab;
+    public float bulletDamage;
 
 
     [Header("Water Settings")]
@@ -82,6 +83,7 @@ public class GameController : Singleton<GameController>
 
         foreach(Room room in Rooms) {
             newHole = Instantiate(HolePrefab, transform.position, Quaternion.identity);
+            newHole.Initialize(holeMaxHealth, room);
 
             room.PositionHole(newHole);
         }

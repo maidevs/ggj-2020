@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7086679584971871260}
   - component: {fileID: 7086679584957724494}
   - component: {fileID: 7086679584957670922}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BigGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4657,7 +4657,7 @@ GameObject:
   - component: {fileID: 7086679584971878910}
   - component: {fileID: 7086679584957733776}
   - component: {fileID: 7086679584958382858}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FireTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9339,7 +9339,7 @@ GameObject:
   - component: {fileID: 7086679584971919996}
   - component: {fileID: 7086679584957688502}
   - component: {fileID: 7086679584958376608}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RingGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14021,7 +14021,7 @@ GameObject:
   - component: {fileID: 7086679584971933776}
   - component: {fileID: 7086679584957779878}
   - component: {fileID: 7086679584957668226}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FireGlowTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18716,7 +18716,7 @@ GameObject:
   - component: {fileID: 8241438251037587062}
   - component: {fileID: 2046830985226026694}
   - component: {fileID: 3736130939017814145}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GunProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
