@@ -8,37 +8,27 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Glass1
-    second: {fileID: 2100000, guid: c72ff8ce30c585e409501efb0d3f7061, type: 2}
+    second: {fileID: 2100000, guid: 83957997a49c5354d870bc2ab7d8b2db, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Glass2
-    second: {fileID: 2100000, guid: c1857b761caaea549bdbc23a6ce358dd, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: GlassMaterial
-    second: {instanceID: 0}
+    second: {fileID: 2100000, guid: 2306e67924de8b5429e9448e277cb807, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: GlassShader
-    second: {fileID: 2100000, guid: 4e524caed45bdb54c975fba4edc5e59c, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Glass_Shader
-    second: {instanceID: 0}
+    second: {fileID: 2100000, guid: a0265e0e58a43cd478085fe97d2530db, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Gun
-    second: {fileID: 2100000, guid: bbc5c781e0f57384b973ac583a54d7e2, type: 2}
+    second: {fileID: 2100000, guid: 1ba00ea44cd6e9c4c83a32cdda07db46, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: GunColor
-    second: {fileID: 2100000, guid: fdc059b8a96a7da4c846cb90f0c486e6, type: 2}
+    second: {fileID: 2100000, guid: 4335b7253cb780a43916539eff4a5738, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -122,7 +112,7 @@ ModelImporter:
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   avatarSetup: 0
   additionalBone: 0
