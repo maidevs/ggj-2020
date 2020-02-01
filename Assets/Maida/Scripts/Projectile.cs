@@ -27,7 +27,7 @@ public class Projectile : MonoBehaviour
         if((mask.value & 1 << other.gameObject.layer) != 0)
         {
             Destroy(Instantiate(impactEffect, transform.position, Quaternion.identity),1f);
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 }
