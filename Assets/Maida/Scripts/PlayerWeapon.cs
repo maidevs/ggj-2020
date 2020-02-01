@@ -42,9 +42,7 @@ public class PlayerWeapon : MonoBehaviour
     private void Update()
     {
         fireRateCounter += Time.deltaTime;
-
-        Debug.LogFormat("RT: {0}", Input.GetAxis("Fire1"));
-
+        
         if (Input.GetAxis("Fire1") >= 1f && fireRateCounter > weaponProperties.fireRate)
         {
             Shoot();
