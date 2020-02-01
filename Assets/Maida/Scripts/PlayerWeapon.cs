@@ -43,20 +43,13 @@ public class PlayerWeapon : MonoBehaviour
     {
         fireRateCounter += Time.deltaTime;
 
-        if (Input.GetButtonDown("Fire1"))
-        {
-            //Camera.main.DOShakePosition(weaponProperties.cameraShakeDuration, weaponProperties.cameraShakeForce);
-            weaponProperties.weaponTransform.DOLocalMoveZ(weaponProperties.weaponTransform.localPosition.z - weaponProperties.gunKickAmount, weaponProperties.gunKickDuration);
-            Shoot();
-        }
-        else if (Input.GetButton("Fire1") && fireRateCounter > weaponProperties.fireRate)
+        Debug.LogFormat("RT: {0}", Input.GetAxis("Fire1"));
+
+        if (Input.GetAxis("Fire1") >= 1f && fireRateCounter > weaponProperties.fireRate)
         {
             Shoot();
         }
-        else if (Input.GetButtonUp("Fire1"))
-        {
-            weaponProperties.weaponTransform.DOLocalMoveZ(weaponProperties.weaponTransform.localPosition.z + weaponProperties.gunKickAmount, weaponProperties.gunKickDuration);
-        }
+        
     }
 
     public void Shoot()
