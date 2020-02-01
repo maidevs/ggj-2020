@@ -242,8 +242,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 StartCoroutine(!m_IsWalking ? m_FovKick.FOVKickUp() : m_FovKick.FOVKickDown());
             }
         }
-
-
+        
         private void RotateView()
         {
             float rightStickHorizontal = Input.GetAxis("Horizontal2");

@@ -70,7 +70,7 @@ public class PlayerWeapon : MonoBehaviour
     private void SpawnProjectile()
     {
         Projectile projectile = Instantiate(weaponProperties.projectile, weaponProperties.weaponBarrel.position, Quaternion.identity, null).GetComponent<Projectile>();
-        projectile.movementDirection = -weaponProperties.weaponBarrel.transform.forward;
+        projectile.movementDirection = weaponProperties.weaponBarrel.transform.forward;
         projectile.speed = weaponProperties.projectileSpeed;
         projectile.lifetime = weaponProperties.projectileLifetime;
         projectile.SetMass(weaponProperties.projectileMass);
