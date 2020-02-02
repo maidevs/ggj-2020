@@ -13,6 +13,7 @@ public static class PlayerInput
     public const string JUMP = "Jump";
     public const string FIRE = "Fire";
     public const string SPRINT = "Sprint";
+    public const string INTERACT = "Interact";
 
     public const float SPRINT_SENSITIVITY_THRESHOLD = 0.5f;
     public const float STICK_SENSITIVITY_THRESHOLD = 0.5f;

@@ -44,6 +44,9 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField]
     private float currentCharge;
     private bool Depleted;
+
+    public bool HasInfiniteBullets;
+
     private Color myColor;
 
     private void Start()
@@ -59,8 +62,10 @@ public class PlayerWeapon : MonoBehaviour
     {
         fireRateCounter += Time.deltaTime;
 
-        if(fireRateCounter > weaponProperties.fireRate) {
-            if(inputHandler.GetFireInput()) {
+        if (fireRateCounter > weaponProperties.fireRate)
+        {
+            if (inputHandler.GetFireInput())
+            {
                 Shoot();
             }
         }
@@ -70,10 +75,10 @@ public class PlayerWeapon : MonoBehaviour
 
     public void Shoot()
     {
-        if(Depleted)
+        if (Depleted)
             return;
 
-        if(currentCharge <= 0)
+        if (currentCharge <= 0)
             return;
 
         MuzzleFlashVFX();
@@ -81,66 +86,92 @@ public class PlayerWeapon : MonoBehaviour
 
         fireRateCounter = 0f;
 
-        Deplete();
+        if (!HasInfiniteBullets)
+            Deplete();
     }
 
-    public void Deplete() {
-        if(currentCharge <= 0)
+    public void Deplete()
+    {
+        if (currentCharge <= 0)
             return;
 
         SetCharge(currentCharge - GameController.gunDepleteRate);
     }
 
-    public void Recharge() {
-        if(currentCharge >= maxCharge)
+    public void Recharge()
+    {
+        if (currentCharge >= maxCharge)
             return;
 
-        float charge = currentCharge + GameController.gunRechargeRate * Time.deltaTime;
+        float charge = currentCharge + GameController.gunRechargeRate;
 
-        if(Depleted)
+        if (Depleted)
             charge *= 3;
 
         SetCharge(currentCharge + GameController.gunRechargeRate);
     }
 
-    private void SetCharge(float charge) {
+    private void SetCharge(float charge)
+    {
         charge = Mathf.Clamp(charge, 0, maxCharge);
 
         currentCharge = charge;
 
-        if(currentCharge == maxCharge && Depleted)
+        if (currentCharge == maxCharge && Depleted)
             Depleted = false;
         else
-            if(currentCharge == 0)
-                Depleted = true;
+            if (currentCharge == 0)
+            Depleted = true;
 
         UpdateGunMaterial();
     }
 
     public void SetColor(Color color) {
+
         myColor = color;
 
+
+
         gunVial.material.SetColor("_Tint", color);
+
         gunVial.material.SetColor("_TopColor", color*1.25f);
+
         gunVial.material.SetColor("_FoamColor", color*2);
+
+
 
         gunCord.materials[2].SetColor("_Color", color);
 
+
+
         ParticleSystem.MainModule main;
 
+
+
         foreach(ParticleSystem system in weaponProperties.projectile.gameObject.GetComponentsInChildren<ParticleSystem>(true)) {
+
             main = system.main;
 
+
+
             main.startColor = color * 2;
+
         }
+
     }
 
     private void UpdateGunMaterial() {
+
         float vialPercentage = currentCharge / maxCharge;
+
+
 
         float vialValue = Mathf.Lerp(0.546f, 0.45f, vialPercentage);
 
+
+
         gunVial.material.SetFloat("_FillAmount", vialValue);
+
     }
 
     private void MuzzleFlashVFX()
@@ -160,8 +191,12 @@ public class PlayerWeapon : MonoBehaviour
         projectile.lifetime = weaponProperties.projectileLifetime;
         projectile.SetMass(weaponProperties.projectileMass);
 
+
+
         projectile.SetColor(myColor);
     }
+
     
+
     public static GameController GameController { get { return GameController.Instance; } }
 }

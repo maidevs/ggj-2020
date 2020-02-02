@@ -36,16 +36,16 @@ public class Projectile : MonoBehaviour
             player.SetStun();
 
         Destroy();
-    }
-
-    public void SetColor(Color color) {
-        ParticleSystem.MainModule main;
-
-        foreach(ParticleSystem system in impactEffect.gameObject.GetComponentsInChildren<ParticleSystem>(true)) {
-            main = system.main;
-
-            main.startColor = color * 2;
-        }
+    }
+
+    public void SetColor(Color color) {
+        ParticleSystem.MainModule main;
+
+        foreach(ParticleSystem system in impactEffect.gameObject.GetComponentsInChildren<ParticleSystem>(true)) {
+            main = system.main;
+
+            main.startColor = color * 2;
+        }
     }
 
     private void Destroy() {
