@@ -40,6 +40,8 @@ public abstract class AItemEffect : MonoBehaviour
         pickupFX = Instantiate(pickupVFX, transform.position, transform.rotation, null);
         explosionFX = Instantiate(explosionVFX, transform.position, transform.rotation, null);
 
+        DestroyVFX(2f);
+
         renderer.enabled = false;
 
         isItemActive = true;
@@ -57,15 +59,14 @@ public abstract class AItemEffect : MonoBehaviour
         if (effectTimer > itemEffectDuration)
         {
             RemoveItemEffect();
-            DestroyVFX();
             OnItemEffectFinished();
         }
     }
 
-    private void DestroyVFX()
+    private void DestroyVFX(float time)
     {
-        Destroy(pickupFX);
-        Destroy(explosionVFX);
+        Destroy(pickupFX.gameObject, time);
+        Destroy(explosionVFX.gameObject, time);
     }
 
     private void FixedUpdate()

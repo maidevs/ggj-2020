@@ -23,7 +23,7 @@ public class ItemPickupSpot : MonoBehaviour
 
     void Start()
     {
-        SpawnItem();
+       
     }
 
     [NaughtyAttributes.Button("SpawnItem")]
@@ -31,7 +31,7 @@ public class ItemPickupSpot : MonoBehaviour
     {
         respawnTimer = 0f;
 
-        Debug.Log("ItemSpawned");
+        UIController.Instance.WarnAboutItemSpawn();
 
         var randomItem = items[UnityEngine.Random.Range(0, items.Count)];
 
