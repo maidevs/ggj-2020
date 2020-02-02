@@ -126,30 +126,52 @@ public class PlayerWeapon : MonoBehaviour
         UpdateGunMaterial();
     }
 
-    public void SetColor(Color color) {
-        myColor = color;
-
-        gunVial.material.SetColor("_Tint", color);
-        gunVial.material.SetColor("_TopColor", color*1.25f);
-        gunVial.material.SetColor("_FoamColor", color*2);
-
-        gunCord.materials[2].SetColor("_Color", color);
-
-        ParticleSystem.MainModule main;
-
-        foreach(ParticleSystem system in weaponProperties.projectile.gameObject.GetComponentsInChildren<ParticleSystem>(true)) {
-            main = system.main;
-
-            main.startColor = color * 2;
-        }
+    public void SetColor(Color color) {
+
+        myColor = color;
+
+
+
+        gunVial.material.SetColor("_Tint", color);
+
+        gunVial.material.SetColor("_TopColor", color*1.25f);
+
+        gunVial.material.SetColor("_FoamColor", color*2);
+
+
+
+        gunCord.materials[2].SetColor("_Color", color);
+
+
+
+        ParticleSystem.MainModule main;
+
+
+
+        foreach(ParticleSystem system in weaponProperties.projectile.gameObject.GetComponentsInChildren<ParticleSystem>(true)) {
+
+            main = system.main;
+
+
+
+            main.startColor = color * 2;
+
+        }
+
     }
 
-    private void UpdateGunMaterial() {
-        float vialPercentage = currentCharge / maxCharge;
-
-        float vialValue = Mathf.Lerp(0.546f, 0.45f, vialPercentage);
-
-        gunVial.material.SetFloat("_FillAmount", vialValue);
+    private void UpdateGunMaterial() {
+
+        float vialPercentage = currentCharge / maxCharge;
+
+
+
+        float vialValue = Mathf.Lerp(0.546f, 0.45f, vialPercentage);
+
+
+
+        gunVial.material.SetFloat("_FillAmount", vialValue);
+
     }
 
     private void MuzzleFlashVFX()
@@ -167,10 +189,14 @@ public class PlayerWeapon : MonoBehaviour
         projectile.movementDirection = weaponProperties.weaponBarrel.transform.forward;
         projectile.speed = weaponProperties.projectileSpeed;
         projectile.lifetime = weaponProperties.projectileLifetime;
-        projectile.SetMass(weaponProperties.projectileMass);
-
+        projectile.SetMass(weaponProperties.projectileMass);
+
+
+
         projectile.SetColor(myColor);
-    }
-    
+    }
+
+    
+
     public static GameController GameController { get { return GameController.Instance; } }
 }

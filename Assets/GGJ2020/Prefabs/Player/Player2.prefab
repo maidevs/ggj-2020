@@ -476,7 +476,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentPlayerNumber: 1
-  fpsController: {fileID: 0}
 --- !u!114 &1474357907
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -491,7 +490,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemLayer:
     serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 32768
 --- !u!1001 &714700274470588954
 PrefabInstance:
   m_ObjectHideFlags: 0
