@@ -17,10 +17,10 @@ TagManager:
   - PostProcessing
   - Ground
   - Bullet
-  - Player
-  - 
-  - 
-  - 
+  - Player1
+  - Player2
+  - Player1Door
+  - Player2Door
   - 
   - 
   - 

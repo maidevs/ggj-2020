@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1651471237520738064}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GunBarrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 2067922189833404706}
   - component: {fileID: 7452645769804327083}
   - component: {fileID: 633044933}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Player1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -342,7 +342,7 @@ MonoBehaviour:
     weaponTransform: {fileID: 3760426617642575826}
     weaponBarrel: {fileID: 1651471237520738064}
     fireRate: 0.1
-    projectile: {fileID: 7086679584972191082, guid: 28b58bb34bf60584bb798da713db350e,
+    projectile: {fileID: 7086679584957743170, guid: 28b58bb34bf60584bb798da713db350e,
       type: 3}
     projectileSpeed: 30
     projectileLifetime: 100
@@ -353,6 +353,8 @@ MonoBehaviour:
     gunKickAmount: 0.1
     gunKickDuration: 0.1
   gunVial: {fileID: 8871462427532736451}
+  gunCord: {fileID: 1893824947902914845}
+  currentCharge: 0
 --- !u!114 &7452645769804327083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -391,7 +393,7 @@ GameObject:
   - component: {fileID: 9213000683548964204}
   - component: {fileID: 9213000683546536268}
   - component: {fileID: 9213000683559397130}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: FirstPersonCharacter
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -479,10 +481,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9213000683547356014}
     m_Modifications:
+    - target: {fileID: 3957439448721451741, guid: 3fb12d4accdddca4eb281d1534f583c9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 5729286708783761601, guid: 3fb12d4accdddca4eb281d1534f583c9,
         type: 3}
       propertyPath: m_Name
       value: Gun
+      objectReference: {fileID: 0}
+    - target: {fileID: 5729286708783761601, guid: 3fb12d4accdddca4eb281d1534f583c9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8780288852439513810, guid: 3fb12d4accdddca4eb281d1534f583c9,
         type: 3}
@@ -559,6 +571,12 @@ PrefabInstance:
 --- !u!4 &3760426617642575826 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8780288852439513810, guid: 3fb12d4accdddca4eb281d1534f583c9,
+    type: 3}
+  m_PrefabInstance: {fileID: 5617785497158475008}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1893824947902914845 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6322585367316691997, guid: 3fb12d4accdddca4eb281d1534f583c9,
     type: 3}
   m_PrefabInstance: {fileID: 5617785497158475008}
   m_PrefabAsset: {fileID: 0}
