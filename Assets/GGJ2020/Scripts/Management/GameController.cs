@@ -1,4 +1,5 @@
 ﻿using NaughtyAttributes;
+using System.Collections;
 using UnityEngine;
 
 public class GameController : Singleton<GameController>
@@ -14,8 +15,15 @@ public class GameController : Singleton<GameController>
 
     [Header("Player Settings")]
     [SerializeField]
-    private IPlayer PlayerPrefab;
     public float bulletDamage;
+    [SerializeField]
+    public float bulletStunTime;
+    [SerializeField]
+    public float gunMaxCharge;
+    [SerializeField]
+    public float gunDepleteRate;
+    [SerializeField]
+    public float gunRechargeRate;
 
 
     [Header("Water Settings")]
@@ -36,6 +44,8 @@ public class GameController : Singleton<GameController>
 
     private void Start() {
         InitializeRooms();
+
+        StartCoroutine(StartMatchCountDown());
     }
 
     private void Update() {
@@ -43,6 +53,14 @@ public class GameController : Singleton<GameController>
             return;
 
         MoveWaters();
+    }
+
+    private IEnumerator SpawnHoles() {
+        while(MatchStatus) {
+            yield return new WaitForSecondsRealtime(holeSpawnTime);
+
+            GenerateHoles();
+        }
     }
 
     private void InitializeRooms() {
@@ -56,15 +74,27 @@ public class GameController : Singleton<GameController>
             room.MoveWater();
     }
 
-    public void OnReadyPlayer() {
-        CheckAllPlayersReady();
-    }
 
-    public void CheckAllPlayersReady() {
-        foreach(Room room in Rooms)
-            if(!room.player.IsPlayerReady())
-                return;
+    public IEnumerator StartMatchCountDown() {
+        int value = 3;
 
+        HUDController.SetText("Get Ready...");
+
+        yield return new WaitForSeconds(2);
+
+
+        while(value > 0) {
+            HUDController.SetCountdown(value);
+
+            yield return new WaitForSeconds(1);
+            value--;
+        }
+
+        HUDController.SetText("Go!");
+
+        yield return new WaitForSeconds(1);
+
+        HUDController.Clear();
 
         StartMatch();
     }
@@ -75,6 +105,12 @@ public class GameController : Singleton<GameController>
 
     private void StartMatch() {
         MatchStatus = true;
+
+        foreach(Room room in Rooms) {
+            room.EnablePlayer();
+        }
+
+        StartCoroutine(SpawnHoles());
     }
 
     [Button("Generate Holes")]
@@ -89,8 +125,15 @@ public class GameController : Singleton<GameController>
         }
     }
 
-    public void EndMatch(IPlayer loserPlayer) {
+    public void EndMatch(PlayerController loserPlayer) {
         Debug.Log("Game Ended");
         MatchStatus = false;
+
+        foreach(Room room in Rooms) {
+            room.DisablePlayer();
+        }
     }
+
+    public static HUDController HUDController { get { return HUDController.Instance; } }
 }
+

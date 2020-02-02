@@ -6,7 +6,8 @@ using UnityEngine;
 [Serializable]
 public class Room : MonoBehaviour
 {
-    public IPlayer player;
+    public PlayerController player;
+    public float CurrentWaterSpeed;
     public Renderer water;
     public Renderer[] walls;
 
@@ -26,7 +27,9 @@ public class Room : MonoBehaviour
     public void MoveWater() {
         Vector3 waterPosition = water.transform.position;
 
-        waterPosition.y += GameController.waterBaseSpeed + (GetHoleNumber() * GameController.holeIncreaseSpeed) * waterSpeedMultiplier;
+        CurrentWaterSpeed = GameController.waterBaseSpeed + (GetHoleNumber() * GameController.holeIncreaseSpeed) * waterSpeedMultiplier;
+
+        waterPosition.y += CurrentWaterSpeed;
 
         water.transform.position = waterPosition;
 
@@ -91,6 +94,14 @@ public class Room : MonoBehaviour
 
     public void WarnDeadHole(Hole hole) {
         holes.RemoveAll(a => a == hole);
+    }
+
+    public void EnablePlayer() {
+        player.Enable();
+    }
+
+    public void DisablePlayer() {
+        player.Disable();
     }
 
     public static GameController GameController { get { return GameController.Instance; } }

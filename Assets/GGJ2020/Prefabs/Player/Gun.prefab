@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3957439448721451712}
   - component: {fileID: 3957439448721451715}
   - component: {fileID: 3360609196609564198}
+  - component: {fileID: 467873726}
   m_Layer: 0
   m_Name: GlassShader
   m_TagString: Untagged
@@ -95,6 +96,21 @@ MonoBehaviour:
   MaxWobble: 0.03
   WobbleSpeed: 1
   Recovery: 1
+--- !u!114 &467873726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3957439448721451741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4af9b31ff0fee0342b79479b3ef170c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxWobble: 0.05
+  WobbleSpeed: 1
+  Recovery: 1
 --- !u!1 &5729286708783761601
 GameObject:
   m_ObjectHideFlags: 0
@@ -106,7 +122,6 @@ GameObject:
   - component: {fileID: 8780288852439513810}
   - component: {fileID: 325064633825460452}
   - component: {fileID: 6322585367316691997}
-  - component: {fileID: 1535257429}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -179,18 +194,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &1535257429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5729286708783761601}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4af9b31ff0fee0342b79479b3ef170c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxWobble: 0.03
-  WobbleSpeed: 1
-  Recovery: 1
