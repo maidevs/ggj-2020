@@ -19,7 +19,7 @@ public class PlayerWeapon : MonoBehaviour
         [Space]
 
         [Header("Projectile Properties")]
-        public GameObject projectile;
+        public ParticleSystem projectile;
         public float projectileSpeed;
         public float projectileLifetime;
         public float projectileMass;
@@ -36,6 +36,7 @@ public class PlayerWeapon : MonoBehaviour
 
     public WeaponProperties weaponProperties;
     public Renderer gunVial;
+    public Renderer gunCord;
 
     private float fireRateCounter;
     private PlayerInputHandler inputHandler;
@@ -43,7 +44,8 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField]
     private float currentCharge;
     private bool Depleted;
-    
+    private Color myColor;
+
     private void Start()
     {
         inputHandler = GetComponent<PlayerInputHandler>();
@@ -93,7 +95,7 @@ public class PlayerWeapon : MonoBehaviour
         if(currentCharge >= maxCharge)
             return;
 
-        float charge = currentCharge + GameController.gunRechargeRate;
+        float charge = currentCharge + GameController.gunRechargeRate * Time.deltaTime;
 
         if(Depleted)
             charge *= 3;
@@ -113,6 +115,24 @@ public class PlayerWeapon : MonoBehaviour
                 Depleted = true;
 
         UpdateGunMaterial();
+    }
+
+    public void SetColor(Color color) {
+        myColor = color;
+
+        gunVial.material.SetColor("_Tint", color);
+        gunVial.material.SetColor("_TopColor", color*1.25f);
+        gunVial.material.SetColor("_FoamColor", color*2);
+
+        gunCord.materials[2].SetColor("_Color", color);
+
+        ParticleSystem.MainModule main;
+
+        foreach(ParticleSystem system in weaponProperties.projectile.gameObject.GetComponentsInChildren<ParticleSystem>(true)) {
+            main = system.main;
+
+            main.startColor = color * 2;
+        }
     }
 
     private void UpdateGunMaterial() {
@@ -139,6 +159,8 @@ public class PlayerWeapon : MonoBehaviour
         projectile.speed = weaponProperties.projectileSpeed;
         projectile.lifetime = weaponProperties.projectileLifetime;
         projectile.SetMass(weaponProperties.projectileMass);
+
+        projectile.SetColor(myColor);
     }
     
     public static GameController GameController { get { return GameController.Instance; } }
