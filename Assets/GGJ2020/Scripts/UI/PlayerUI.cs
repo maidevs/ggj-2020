@@ -37,18 +37,26 @@ public class PlayerUI : MonoBehaviour
     [SerializeField]
     private AnimationCurve toastyCurve;
 
+    [Header("Stun Effect")]
+    [SerializeField]
+    private GameObject stunOverlay;
+
 
     private PlayerWeapon weapon;
+    private PlayerController playerController;
 
     void Start()
     {
         weapon = GetComponent<PlayerWeapon>();
+        playerController = GetComponent<PlayerController>();
         toastyOrigin = toasty.transform.position;
     }
 
     private void Update()
     {
         UpdateAmmoSlider();
+
+        stunOverlay.SetActive(playerController.IsStunned);
     }
 
     private void UpdateAmmoSlider()

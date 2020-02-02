@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 185b652f2976ab1469d228ee44bf0c36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemEffectDuration: 0.5
+  itemEffectDuration: 5
   pickupVFX: {fileID: 129898, guid: 36bdc02b23d9ca94d93bd715c0cca5c0, type: 3}
   explosionVFX: {fileID: 115286, guid: ec1c5863f61e8ff4a84dbdb8a282a7ac, type: 3}
   rotationSpeed: 4
