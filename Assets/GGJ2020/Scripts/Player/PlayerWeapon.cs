@@ -43,7 +43,9 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField]
     private float currentCharge;
     private bool Depleted;
-    
+
+    public bool HasInfiniteBullets;
+
     private void Start()
     {
         inputHandler = GetComponent<PlayerInputHandler>();
@@ -57,8 +59,10 @@ public class PlayerWeapon : MonoBehaviour
     {
         fireRateCounter += Time.deltaTime;
 
-        if(fireRateCounter > weaponProperties.fireRate) {
-            if(inputHandler.GetFireInput()) {
+        if (fireRateCounter > weaponProperties.fireRate)
+        {
+            if (inputHandler.GetFireInput())
+            {
                 Shoot();
             }
         }
@@ -68,10 +72,10 @@ public class PlayerWeapon : MonoBehaviour
 
     public void Shoot()
     {
-        if(Depleted)
+        if (Depleted)
             return;
 
-        if(currentCharge <= 0)
+        if (currentCharge <= 0)
             return;
 
         MuzzleFlashVFX();
@@ -79,43 +83,48 @@ public class PlayerWeapon : MonoBehaviour
 
         fireRateCounter = 0f;
 
-        Deplete();
+        if (!HasInfiniteBullets)
+            Deplete();
     }
 
-    public void Deplete() {
-        if(currentCharge <= 0)
+    public void Deplete()
+    {
+        if (currentCharge <= 0)
             return;
 
         SetCharge(currentCharge - GameController.gunDepleteRate);
     }
 
-    public void Recharge() {
-        if(currentCharge >= maxCharge)
+    public void Recharge()
+    {
+        if (currentCharge >= maxCharge)
             return;
 
         float charge = currentCharge + GameController.gunRechargeRate;
 
-        if(Depleted)
+        if (Depleted)
             charge *= 3;
 
         SetCharge(currentCharge + GameController.gunRechargeRate);
     }
 
-    private void SetCharge(float charge) {
+    private void SetCharge(float charge)
+    {
         charge = Mathf.Clamp(charge, 0, maxCharge);
 
         currentCharge = charge;
 
-        if(currentCharge == maxCharge && Depleted)
+        if (currentCharge == maxCharge && Depleted)
             Depleted = false;
         else
-            if(currentCharge == 0)
-                Depleted = true;
+            if (currentCharge == 0)
+            Depleted = true;
 
         UpdateGunMaterial();
     }
 
-    private void UpdateGunMaterial() {
+    private void UpdateGunMaterial()
+    {
         float vialPercentage = currentCharge / maxCharge;
 
         float vialValue = Mathf.Lerp(0.546f, 0.45f, vialPercentage);
@@ -140,6 +149,6 @@ public class PlayerWeapon : MonoBehaviour
         projectile.lifetime = weaponProperties.projectileLifetime;
         projectile.SetMass(weaponProperties.projectileMass);
     }
-    
+
     public static GameController GameController { get { return GameController.Instance; } }
 }

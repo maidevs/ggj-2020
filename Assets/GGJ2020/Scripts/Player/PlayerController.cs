@@ -5,7 +5,7 @@ using UnityStandardAssets.Characters.FirstPerson;
 public class PlayerController : MonoBehaviour {
 
     public int CurrentPlayerNumber;
-    FirstPersonController fpsController;
+    public FirstPersonController fpsController;
 
     bool IsStunned;
 
@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour {
 
         StartCoroutine(UnStun());
     }
-
+    
     IEnumerator UnStun() {
         fpsController.enabled = false;
         HUDController.SetPlayerStun(CurrentPlayerNumber);

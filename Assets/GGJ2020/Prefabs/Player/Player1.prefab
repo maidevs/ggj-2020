@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1651471237520738064}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GunBarrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,7 +46,8 @@ GameObject:
   - component: {fileID: 2067922189833404706}
   - component: {fileID: 7452645769804327083}
   - component: {fileID: 633044933}
-  m_Layer: 0
+  - component: {fileID: 203264740}
+  m_Layer: 11
   m_Name: Player1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -353,6 +354,8 @@ MonoBehaviour:
     gunKickAmount: 0.1
     gunKickDuration: 0.1
   gunVial: {fileID: 8871462427532736451}
+  currentCharge: 0
+  HasInfiniteBullets: 0
 --- !u!114 &7452645769804327083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -379,6 +382,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentPlayerNumber: 0
+  fpsController: {fileID: 0}
+--- !u!114 &203264740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9213000683547195212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec12a0dcbcab2194eb72443a7b13c98c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemLayer:
+    serializedVersion: 2
+    m_Bits: 4096
 --- !u!1 &9213000683547195214
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,7 +410,7 @@ GameObject:
   - component: {fileID: 9213000683548964204}
   - component: {fileID: 9213000683546536268}
   - component: {fileID: 9213000683559397130}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: FirstPersonCharacter
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -479,10 +498,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9213000683547356014}
     m_Modifications:
+    - target: {fileID: 3957439448721451741, guid: 3fb12d4accdddca4eb281d1534f583c9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 5729286708783761601, guid: 3fb12d4accdddca4eb281d1534f583c9,
         type: 3}
       propertyPath: m_Name
       value: Gun
+      objectReference: {fileID: 0}
+    - target: {fileID: 5729286708783761601, guid: 3fb12d4accdddca4eb281d1534f583c9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8780288852439513810, guid: 3fb12d4accdddca4eb281d1534f583c9,
         type: 3}

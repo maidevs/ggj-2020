@@ -38,6 +38,11 @@ public class PlayerInputHandler : MonoBehaviour
         return rewiredPlayer.GetButton(PlayerInput.JUMP);
     }
 
+    public bool GetInteractInput()
+    {
+        return rewiredPlayer.GetButton(PlayerInput.INTERACT);
+    }
+
     public bool GetSprintInput()
     {
         return rewiredPlayer.GetAxis(PlayerInput.SPRINT) > PlayerInput.SPRINT_SENSITIVITY_THRESHOLD;
@@ -47,5 +52,5 @@ public class PlayerInputHandler : MonoBehaviour
     {
         return rewiredPlayer.GetAxis(PlayerInput.FIRE) > PlayerInput.FIRE_SENSITIVITY_THRESHOLD;
     }
-
+    
 }
