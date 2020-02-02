@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 7452645769804327083}
   - component: {fileID: 633044933}
   - component: {fileID: 203264740}
+  - component: {fileID: 1499242943}
   m_Layer: 11
   m_Name: Player1
   m_TagString: Untagged
@@ -355,6 +356,7 @@ MonoBehaviour:
     gunKickDuration: 0.1
   gunVial: {fileID: 8871462427532736451}
   gunCord: {fileID: 1893824947902914845}
+  maxCharge: 0
   currentCharge: 0
   HasInfiniteBullets: 0
 --- !u!114 &7452645769804327083
@@ -383,6 +385,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentPlayerNumber: 0
+  stunMultiplier: 1
+  IsStunned: 0
 --- !u!114 &203264740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -398,6 +402,49 @@ MonoBehaviour:
   itemLayer:
     serializedVersion: 2
     m_Bits: 32768
+--- !u!114 &1499242943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9213000683547195212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08129de70c567554487ece604c82f070, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactItemUI: {fileID: 0}
+  interactFillCircle: {fileID: 0}
+  effectText: {fileID: 0}
+  ammoSlider: {fileID: 0}
+  toasty: {fileID: 0}
+  toastySound: {fileID: 8300000, guid: 26faca9eb79de324793fe0fa5d962612, type: 3}
+  toastyActivePos: {fileID: 0}
+  toastyCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &9213000683547195214
 GameObject:
   m_ObjectHideFlags: 0
