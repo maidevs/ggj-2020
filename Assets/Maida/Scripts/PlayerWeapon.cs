@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 public class PlayerWeapon : MonoBehaviour
 {
@@ -36,14 +35,20 @@ public class PlayerWeapon : MonoBehaviour
     }
 
     public WeaponProperties weaponProperties;
-
+    
     private float fireRateCounter;
+    private PlayerInputHandler inputHandler;
+
+    private void Start()
+    {
+        inputHandler = GetComponent<PlayerInputHandler>();
+    }
 
     private void Update()
     {
         fireRateCounter += Time.deltaTime;
         
-        if (Input.GetAxis("Fire1") >= 1f && fireRateCounter > weaponProperties.fireRate)
+        if (inputHandler.GetFireInput() && fireRateCounter > weaponProperties.fireRate)
         {
             Shoot();
         }
