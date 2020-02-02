@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class ItemPickupSpot : MonoBehaviour
 {
-    [SerializeField]
-    private float pickupTime;
+    public float pickupTime = 4f;
 
     [SerializeField]
     private float itemRespawnTime;

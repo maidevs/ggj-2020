@@ -40,9 +40,9 @@ public class PlayerWeapon : MonoBehaviour
 
     private float fireRateCounter;
     private PlayerInputHandler inputHandler;
-    private float maxCharge;
+    public float maxCharge;
     [SerializeField]
-    private float currentCharge;
+    public float currentCharge;
     private bool Depleted;
 
     public bool HasInfiniteBullets;

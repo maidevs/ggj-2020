@@ -1,5 +1,6 @@
 ﻿using NaughtyAttributes;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameController : Singleton<GameController>
@@ -24,7 +25,8 @@ public class GameController : Singleton<GameController>
     public float gunDepleteRate;
     [SerializeField]
     public float gunRechargeRate;
-
+    [SerializeField]
+    private List<Transform> players;
 
     [Header("Water Settings")]
     public float waterBaseSpeed;
@@ -35,9 +37,7 @@ public class GameController : Singleton<GameController>
     public float holeSpawnTime;
     public float holeMaxHealth;
     public Hole HolePrefab;
-
-
-
+    
     [Header("Runtime Properties")]
     [SerializeField]
     private Room[] Rooms;
@@ -123,6 +123,14 @@ public class GameController : Singleton<GameController>
 
             room.PositionHole(newHole);
         }
+    }
+
+    public Transform GetEnemy(int index)
+    {
+        if (index == 1)
+            return players[0];
+        else 
+            return players[1];
     }
 
     public void EndMatch(PlayerController loserPlayer) {

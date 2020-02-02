@@ -61,4 +61,5 @@ MonoBehaviour:
   itemRespawnTime: 10
   items:
   - {fileID: 1409949897188613935, guid: c68736a7e2d1f224791693e9345b1355, type: 3}
+  - {fileID: 67276916346933332, guid: fe108a03b1d005545aec306e160f41c0, type: 3}
   HasActiveItemEffect: 0
