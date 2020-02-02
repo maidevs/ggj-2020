@@ -10,6 +10,7 @@ public class Room : MonoBehaviour
     public float CurrentWaterSpeed;
     public Renderer water;
     public Renderer[] walls;
+    public Color playerColor;
 
 
     private List<Hole> holes;
@@ -17,6 +18,8 @@ public class Room : MonoBehaviour
 
     public void Start() {
         holes = new List<Hole>();
+
+        player.SetColor(playerColor);
     }
 
     public void SetReady() {

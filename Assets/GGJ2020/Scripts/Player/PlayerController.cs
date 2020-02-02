@@ -5,22 +5,27 @@ using UnityStandardAssets.Characters.FirstPerson;
 public class PlayerController : MonoBehaviour {
 
     public int CurrentPlayerNumber;
-    public FirstPersonController fpsController;
+    FirstPersonController fpsController;
+    PlayerWeapon playerWeapon;
+
 
     bool IsStunned;
 
     public void Awake() {
         fpsController = GetComponent<FirstPersonController>();
+        playerWeapon = GetComponent<PlayerWeapon>();
 
-        fpsController.enabled = false;
+        Disable();
     }
 
     public void Enable() {
         fpsController.enabled = true;
+        playerWeapon.enabled = true;
     }
 
     public void Disable() {
         fpsController.enabled = false;
+        playerWeapon.enabled = false;
     }
 
 
@@ -32,7 +37,11 @@ public class PlayerController : MonoBehaviour {
 
         StartCoroutine(UnStun());
     }
-    
+
+    public void SetColor(Color color) {
+        playerWeapon.SetColor(color);
+    }
+
     IEnumerator UnStun() {
         fpsController.enabled = false;
         HUDController.SetPlayerStun(CurrentPlayerNumber);
