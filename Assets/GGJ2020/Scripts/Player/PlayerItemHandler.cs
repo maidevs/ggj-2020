@@ -7,6 +7,9 @@ public class PlayerItemHandler : MonoBehaviour
     [SerializeField]
     private LayerMask itemLayer;
 
+    private PlayerUI playerUI;
+    private PlayerController playerController;
+
     private PlayerInputHandler inputHandler;
 
     private ItemPickupSpot itemPickupSpotInRange;
@@ -16,6 +19,8 @@ public class PlayerItemHandler : MonoBehaviour
     void Start()
     {
         inputHandler = GetComponent<PlayerInputHandler>();
+        playerUI = GetComponent<PlayerUI>();
+        playerController = GetComponent<PlayerController>();
     }
 
     private void Update()
@@ -23,21 +28,33 @@ public class PlayerItemHandler : MonoBehaviour
         if (inputHandler.GetLeftStickAxis().magnitude > 0f)
             return;
 
-        if(itemPickupSpotInRange != null && inputHandler.GetInteractInput() && !itemPickupSpotInRange.HasActiveItemEffect)
+        UpdateUIInteractionLabel();
+
+        if (itemPickupSpotInRange != null)
+            playerUI.UpdateInteractionFillCircle(Mathf.InverseLerp(0f, itemPickupSpotInRange.pickupTime, interactionTime));
+
+        if (itemPickupSpotInRange != null && !playerController.IsStunned && inputHandler.GetInteractInput() && !itemPickupSpotInRange.HasActiveItemEffect)
         {
             interactionTime += Time.deltaTime;
-
             itemPickupSpotInRange.TriggerPickupProcess(interactionTime, transform);
         }
-        else 
+        else
         {
             interactionTime = 0f;
         }
     }
 
+    private void UpdateUIInteractionLabel()
+    {
+        if (itemPickupSpotInRange != null && itemPickupSpotInRange.CurrentItem != null && !itemPickupSpotInRange.HasActiveItemEffect)
+            playerUI.ActivateItemInteractUI();
+        else
+            playerUI.DeactivateItemInteractUI();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if((itemLayer.value & 1 << other.gameObject.layer) != 0)
+        if ((itemLayer.value & 1 << other.gameObject.layer) != 0)
         {
             Debug.Log("Item in Range");
             itemPickupSpotInRange = other.GetComponent<ItemPickupSpot>();

@@ -9,7 +9,7 @@ public class UIController : MonoBehaviour
 
     [SerializeField]
     private GameObject itemSpawnWarning;
-
+ 
     public static UIController Instance
     {
         get { return _instance; }

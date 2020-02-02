@@ -15,10 +15,15 @@ public abstract class AItemEffect : MonoBehaviour
     [SerializeField]
     private float rotationSpeed;
 
+    [SerializeField]
+    private string itemEffectDescription;
+
     private GameObject pickupFX;
     private GameObject explosionFX;
 
     protected Transform player;
+    protected PlayerController enemy;
+
     private MeshRenderer renderer;
 
     public abstract void ApplyItemEffect();
@@ -35,8 +40,6 @@ public abstract class AItemEffect : MonoBehaviour
 
     public void TriggerItem(Transform player)
     {
-        Debug.Log("Effect Triggered");
-
         pickupFX = Instantiate(pickupVFX, transform.position, transform.rotation, null);
         explosionFX = Instantiate(explosionVFX, transform.position, transform.rotation, null);
 
@@ -48,6 +51,12 @@ public abstract class AItemEffect : MonoBehaviour
 
         this.player = player;
 
+        player.GetComponent<PlayerUI>().DisplayItemEffect(itemEffectDescription);
+
+        int playerIndex = player.GetComponent<PlayerController>().CurrentPlayerNumber;
+
+        enemy = GameController.Instance.GetEnemy(playerIndex).GetComponent<PlayerController>();
+        
         ApplyItemEffect();
     }
 

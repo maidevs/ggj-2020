@@ -5,7 +5,7 @@ using UnityEngine;
 public class InfiniteBullets : AItemEffect
 {
     private PlayerWeapon playerWeapon;
-    
+
     public override void ApplyItemEffect()
     {
         playerWeapon = player.GetComponent<PlayerWeapon>();
@@ -14,6 +14,7 @@ public class InfiniteBullets : AItemEffect
 
     public override void RemoveItemEffect()
     {
-        playerWeapon.HasInfiniteBullets = false;
+        if (playerWeapon != null)
+            playerWeapon.HasInfiniteBullets = false;
     }
 }

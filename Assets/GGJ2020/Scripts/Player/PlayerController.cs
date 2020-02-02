@@ -8,8 +8,9 @@ public class PlayerController : MonoBehaviour {
     FirstPersonController fpsController;
     PlayerWeapon playerWeapon;
 
+    public float stunMultiplier = 1f;
 
-    bool IsStunned;
+    public bool IsStunned;
 
     public void Awake() {
         fpsController = GetComponent<FirstPersonController>();
@@ -35,6 +36,10 @@ public class PlayerController : MonoBehaviour {
 
         IsStunned = true;
 
+        PlayerUI playerUI = transform.GetComponent<PlayerUI>();
+
+        playerUI.TriggerToasty();
+
         StartCoroutine(UnStun());
     }
 
@@ -46,7 +51,7 @@ public class PlayerController : MonoBehaviour {
         fpsController.enabled = false;
         HUDController.SetPlayerStun(CurrentPlayerNumber);
 
-        yield return new WaitForSeconds(GameController.bulletStunTime);
+        yield return new WaitForSeconds(GameController.bulletStunTime * stunMultiplier);
 
         IsStunned = false;
 
