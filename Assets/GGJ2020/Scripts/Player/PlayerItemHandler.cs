@@ -33,10 +33,18 @@ public class PlayerItemHandler : MonoBehaviour
         if (itemPickupSpotInRange != null)
             playerUI.UpdateInteractionFillCircle(Mathf.InverseLerp(0f, itemPickupSpotInRange.pickupTime, interactionTime));
 
+        if(playerController.IsStunned) {
+            interactionTime = 0;
+            return;
+        }
+
         if (itemPickupSpotInRange != null && !playerController.IsStunned && inputHandler.GetInteractInput() && !itemPickupSpotInRange.HasActiveItemEffect)
         {
             interactionTime += Time.deltaTime;
             itemPickupSpotInRange.TriggerPickupProcess(interactionTime, transform);
+
+
+            playerController.SetAnimatorTrigger("collect");
         }
         else
         {

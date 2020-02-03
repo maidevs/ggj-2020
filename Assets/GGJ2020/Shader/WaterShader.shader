@@ -80,7 +80,7 @@
                     half depth = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, UNITY_PROJ_COORD(i.scrPos))); // depth
                     half4 foamLine = 1 - saturate(_Foam* (depth - i.scrPos.w));// foam line by comparing depth and screenposition
                     col *= _Color;
-                    col += (step(0.4 * distortx,foamLine) * _FoamC); // add the foam line and tint to the texture
+                    //col += (step(0.4 * distortx,foamLine) * _FoamC); // add the foam line and tint to the texture
                     col = saturate(col) * col.a;
 
                     return   col;

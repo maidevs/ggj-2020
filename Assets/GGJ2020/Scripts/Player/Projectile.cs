@@ -33,7 +33,7 @@ public class Projectile : MonoBehaviour
         PlayerController player = other.GetComponent<PlayerController>();
 
         if(player != null && player != owner)
-            player.SetStun();
+            player.AddStun();
 
         Destroy();
     }

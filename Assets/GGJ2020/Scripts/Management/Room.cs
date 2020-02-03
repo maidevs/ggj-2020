@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ public class Room : MonoBehaviour
     public Renderer water;
     public Renderer[] walls;
     public Color playerColor;
+    public Transform spawnPoint;
 
 
     private List<Hole> holes;
@@ -23,8 +25,9 @@ public class Room : MonoBehaviour
     }
 
     public void SetReady() {
-        //reset player position
-        //reset water position
+        player.SetRoom(this);
+
+        RespawnPlayer(false);
     }
 
     public void MoveWater() {
@@ -42,8 +45,36 @@ public class Room : MonoBehaviour
     public void CheckWaterLevel() {
         Vector3 waterPosition = water.transform.position;
 
-        if(waterPosition.y >= GameController.InstaLossLevel)
+        if(waterPosition.y >= GameController.InstaLossLevel) {
             GameController.EndMatch(player);
+
+            player.SetAnimatorTrigger("died");
+            player.SetStun(false, false);
+        }
+    }
+
+    public void RespawnPlayer(bool stun = true) {
+
+        StartCoroutine(doTeleportPlayer(stun));
+    }
+
+    IEnumerator doTeleportPlayer(bool stun = true) {
+        player.Disable();
+
+        yield return null;
+
+        player.transform.transform.SetParent(spawnPoint.transform);
+
+        player.transform.localPosition = Vector3.zero;
+        player.transform.localEulerAngles = Vector3.zero;
+
+        yield return null;
+
+        player.Enable();
+
+        if(stun)
+            player.SetStun();
+
     }
 
     public void PositionHole(Hole hole) {
@@ -66,6 +97,12 @@ public class Room : MonoBehaviour
             randomPosition.z += (wall.bounds.extents.z * 1.05f * -wall.transform.forward.z);
 
             randomPosition += wallCenter;
+
+
+            if(randomPosition.y < GameController.InstaLossLevel) {
+                Debug.LogWarning("Did not found spot to instantiate hole. Skipping");
+                continue;
+            }
 
             Collider[] foundHoles= Physics.OverlapBox(randomPosition, holeBounds.extents / 2);
 

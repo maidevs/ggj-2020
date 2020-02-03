@@ -45,11 +45,15 @@ public class FirstPersonController : MonoBehaviour
     private bool m_Jumping;
     private AudioSource m_AudioSource;
     private PlayerInputHandler m_InputHandler;
-    
+
+
+    PlayerController playerController;
 
     // Use this for initialization
     private void Start()
     {
+        playerController = GetComponent<PlayerController>();
+
         m_CharacterController = GetComponent<CharacterController>();
         m_OriginalCameraPosition = m_Camera.transform.localPosition;
         m_FovKick.Setup(m_Camera);
@@ -110,6 +114,10 @@ public class FirstPersonController : MonoBehaviour
         Physics.SphereCast(transform.position, m_CharacterController.radius, Vector3.down, out hitInfo,
                            m_CharacterController.height / 2f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
         desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal).normalized;
+
+
+
+
 
         m_MoveDir.x = desiredMove.x * speed;
         m_MoveDir.z = desiredMove.z * speed;
@@ -207,8 +215,7 @@ public class FirstPersonController : MonoBehaviour
     }
 
 
-    private void GetInput(out float speed)
-    {
+    private void GetInput(out float speed) {
         bool waswalking = m_IsWalking;
 
 #if !MOBILE_INPUT
@@ -221,15 +228,27 @@ public class FirstPersonController : MonoBehaviour
 
         m_Input = m_InputHandler.GetLeftStickAxis();
 
+
+
+
+
         // normalize input if it exceeds 1 in combined length:
         if (m_Input.sqrMagnitude > 1)
         {
             m_Input.Normalize();
         }
 
+
+        float percentage = Mathf.Lerp(0, 0.5f, m_Input.magnitude);
+
+        playerController.SetAnimatorFloat("speed", percentage);
+
+
+
+
         // handle speed change to give an fov kick
         // only if the player is going to a run, is running and the fovkick is to be used
-        if (m_IsWalking != waswalking && m_UseFovKick && m_CharacterController.velocity.sqrMagnitude > 0)
+        if(m_IsWalking != waswalking && m_UseFovKick && m_CharacterController.velocity.sqrMagnitude > 0)
         {
             StopAllCoroutines();
             StartCoroutine(!m_IsWalking ? m_FovKick.FOVKickUp() : m_FovKick.FOVKickDown());
@@ -245,11 +264,17 @@ public class FirstPersonController : MonoBehaviour
 
         var movedEulerAngles = m_Camera.transform.localEulerAngles;
 
+
+
+        float derp = ClampAngle(movedEulerAngles.x, -70f, 70f);
+
         m_Camera.transform.localEulerAngles = new Vector3(
-            ClampAngle(movedEulerAngles.x, -70f, 70f),
+            derp,
             movedEulerAngles.y,
             movedEulerAngles.z
             );
+
+        playerController.SetAnimatorFloat("vPosition", 0.5f);
     }
 
     float ClampAngle(float angle, float from, float to)

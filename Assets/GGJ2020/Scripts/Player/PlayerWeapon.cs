@@ -20,6 +20,7 @@ public class PlayerWeapon : MonoBehaviour
 
         [Header("Projectile Properties")]
         public ParticleSystem projectile;
+        public ParticleSystem underWaterprojectile;
         public float projectileSpeed;
         public float projectileLifetime;
         public float projectileMass;
@@ -35,11 +36,12 @@ public class PlayerWeapon : MonoBehaviour
     }
 
     public WeaponProperties weaponProperties;
-    public Renderer gunVial;
-    public Renderer gunCord;
+    public Renderer[] gunVials;
+    public Renderer[] gunCords;
 
     private float fireRateCounter;
     private PlayerInputHandler inputHandler;
+    private PlayerController playerController;
     public float maxCharge;
     [SerializeField]
     public float currentCharge;
@@ -51,6 +53,7 @@ public class PlayerWeapon : MonoBehaviour
 
     private void Start()
     {
+        playerController = GetComponent<PlayerController>();
         inputHandler = GetComponent<PlayerInputHandler>();
 
         maxCharge = GameController.gunMaxCharge;
@@ -67,7 +70,10 @@ public class PlayerWeapon : MonoBehaviour
             if (inputHandler.GetFireInput())
             {
                 Shoot();
+                playerController.SetAnimatorBool("shooting", true);
             }
+            else
+                playerController.SetAnimatorBool("shooting", false);
         }
 
         Recharge();
@@ -105,8 +111,11 @@ public class PlayerWeapon : MonoBehaviour
 
         float charge = currentCharge + GameController.gunRechargeRate;
 
-        if (Depleted)
+        if(Depleted) {
             charge *= 3;
+
+            playerController.SetAnimatorTrigger("reload");
+        }
 
         SetCharge(currentCharge + GameController.gunRechargeRate);
     }
@@ -132,15 +141,19 @@ public class PlayerWeapon : MonoBehaviour
 
 
 
-        gunVial.material.SetColor("_Tint", color);
+        foreach(Renderer gunVial in gunVials) {
 
-        gunVial.material.SetColor("_TopColor", color*1.25f);
+            gunVial.material.SetColor("_Tint", color);
 
-        gunVial.material.SetColor("_FoamColor", color*2);
+            gunVial.material.SetColor("_TopColor", color * 1.25f);
+
+            gunVial.material.SetColor("_FoamColor", color * 2);
+        }
 
 
-
-        gunCord.materials[2].SetColor("_Color", color);
+        foreach(Renderer gunCord in gunCords) {
+            gunCord.materials[2].SetColor("_Color", color);
+        }
 
 
 
@@ -159,6 +172,10 @@ public class PlayerWeapon : MonoBehaviour
         }
 
     }
+    private bool isUnderWater;
+    public void SetUnderWater(bool isUnderWater) {
+        this.isUnderWater = isUnderWater;
+    }
 
     private void UpdateGunMaterial() {
 
@@ -170,7 +187,9 @@ public class PlayerWeapon : MonoBehaviour
 
 
 
-        gunVial.material.SetFloat("_FillAmount", vialValue);
+        foreach(Renderer gunVial in gunVials) {
+            gunVial.material.SetFloat("_FillAmount", vialValue);
+        }
 
     }
 
@@ -185,15 +204,25 @@ public class PlayerWeapon : MonoBehaviour
 
     private void SpawnProjectile()
     {
-        Projectile projectile = Instantiate(weaponProperties.projectile, weaponProperties.weaponBarrel.position, Quaternion.identity, null).GetComponent<Projectile>();
-        projectile.movementDirection = weaponProperties.weaponBarrel.transform.forward;
-        projectile.speed = weaponProperties.projectileSpeed;
-        projectile.lifetime = weaponProperties.projectileLifetime;
-        projectile.SetMass(weaponProperties.projectileMass);
+
+        Projectile projectile;
+        if(!isUnderWater) {
+            projectile = Instantiate(weaponProperties.projectile, weaponProperties.weaponBarrel.position, Quaternion.identity, null).GetComponent<Projectile>();
+            projectile.movementDirection = weaponProperties.weaponBarrel.transform.forward;
+            projectile.speed = weaponProperties.projectileSpeed;
+            projectile.lifetime = weaponProperties.projectileLifetime;
+            projectile.SetMass(weaponProperties.projectileMass);
+            projectile.SetColor(myColor);
+        } else {
+
+            projectile = Instantiate(weaponProperties.underWaterprojectile, weaponProperties.weaponBarrel.position, Quaternion.identity, null).GetComponent<Projectile>();
+            projectile.transform.SetParent(weaponProperties.weaponBarrel.transform);
 
 
-
-        projectile.SetColor(myColor);
+            projectile.transform.localEulerAngles = Vector3.zero;
+            projectile.transform.SetParent(null);
+            projectile.speed = 0;
+        }
     }
 
     

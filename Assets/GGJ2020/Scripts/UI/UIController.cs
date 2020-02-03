@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
     private static UIController _instance;
 
     [SerializeField]
-    private GameObject itemSpawnWarning;
+    private Text itemSpawnWarning;
  
     public static UIController Instance
     {
@@ -28,12 +29,12 @@ public class UIController : MonoBehaviour
         StartCoroutine(TemporaryWarning(itemSpawnWarning, 5f));
     }
 
-    IEnumerator TemporaryWarning(GameObject uiElement, float time)
+    IEnumerator TemporaryWarning(Text uiElement, float time)
     {
-        uiElement.SetActive(true);
+        uiElement.gameObject.SetActive(true);
 
         yield return new WaitForSeconds(time);
 
-        uiElement.SetActive(false);
+        uiElement.gameObject.SetActive(false);
     }
 }

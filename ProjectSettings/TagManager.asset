@@ -22,12 +22,11 @@ TagManager:
   - Player1Door
   - Player2Door
   - Item
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Death
+  - Player1First
+  - Player1Third
+  - Player2First
+  - Player2Third
   - 
   - 
   - 

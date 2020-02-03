@@ -39,7 +39,7 @@ public class PlayerUI : MonoBehaviour
 
     [Header("Stun Effect")]
     [SerializeField]
-    private GameObject stunOverlay;
+    public GameObject stunOverlay;
 
 
     private PlayerWeapon weapon;
@@ -55,8 +55,6 @@ public class PlayerUI : MonoBehaviour
     private void Update()
     {
         UpdateAmmoSlider();
-
-        stunOverlay.SetActive(playerController.IsStunned);
     }
 
     private void UpdateAmmoSlider()
